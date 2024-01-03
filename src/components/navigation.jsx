@@ -1,68 +1,38 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button, IconButton, Box } from '@mui/material';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { AppBar, Toolbar, Typography, Button, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
-const Navigation = ({ currentPage }) => {
+const Navigation = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const getButtonStyle = (path) => ({
+    fontWeight: location.pathname === path ? 'bold' : 'normal',
+    boxShadow: location.pathname === path ? '0px 2px 4px -1px rgba(0,0,0,0.2)' : 'none',
+    color: 'black',
+    flexGrow: 1,
+    textAlign: 'center',
+  });
+
   return (
     <AppBar position="static" color="default" elevation={0}>
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: 'black', fontSize:"40px", fontWeight:"bold" }}>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: 'black', fontSize: "40px", fontWeight: "bold" }}>
           PayPro
         </Typography>
-        <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
-          <Button 
-            color="inherit" 
-            sx={{
-              fontWeight: currentPage === 'Users' ? 'bold' : 'normal',
-              boxShadow: currentPage === 'Users' ? '0px 2px 4px -1px rgba(0,0,0,0.2)' : 'none',
-              color: 'black'
-            }}
-          >
-            Users
-          </Button>
-          </Box>
-
-          <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
-          <Button 
-            color="inherit" 
-            sx={{
-              fontWeight: currentPage === 'Merchants' ? 'bold' : 'normal',
-              boxShadow: currentPage === 'Merchants' ? '0px 2px 4px -1px rgba(0,0,0,0.2)' : 'none',
-              color: 'black'
-            }}
-          >
-            Merchants
-          </Button>
-
-        </Box>
-
-        <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
-          <Button 
-            color="inherit" 
-            sx={{
-              fontWeight: currentPage === 'Terminals' ? 'bold' : 'normal',
-              boxShadow: currentPage === 'Terminals' ? '0px 2px 4px -1px rgba(0,0,0,0.2)' : 'none',
-              color: 'black'
-            }}
-          >
-            Terminals
-          </Button>
-
-        </Box>
-
-        <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
-          <Button 
-            color="inherit" 
-            sx={{
-              fontWeight: currentPage === 'Transactions' ? 'bold' : 'normal',
-              boxShadow: currentPage === 'Transactions' ? '0px 2px 4px -1px rgba(0,0,0,0.2)' : 'none',
-              color: 'black'
-            }}
-          >
-            Transactions
-          </Button>
-
-        </Box>
+        <Button color="inherit" sx={getButtonStyle('/users')} onClick={() => navigate('/users')}>
+          Users
+        </Button>
+        <Button color="inherit" sx={getButtonStyle('/merchants')} onClick={() => navigate('/merchants')}>
+          Merchants
+        </Button>
+        <Button color="inherit" sx={getButtonStyle('/terminals')} onClick={() => navigate('/terminals')}>
+          Terminals
+        </Button>
+        <Button color="inherit" sx={getButtonStyle('/transactions')} onClick={() => navigate('/transactions')}>
+          Transactions
+        </Button>
         <IconButton edge="end" color="inherit" aria-label="menu">
           <MenuIcon />
         </IconButton>
